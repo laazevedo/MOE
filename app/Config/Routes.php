@@ -32,9 +32,13 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('/cadastro', 'Cadastro::index');
-$routes->post('/cadastro', 'Cadastro::cadastrarUsuario');
-$routes->post('/cadastro/estagiario', 'Cadastro::cadastrarEstagiario');
+$routes->get('/cadastro', 'UsuarioController::index');
+$routes->get('/email', 'UsuarioController::enviarEmail');
+$routes->get('/empregador', 'UsuarioController::empregadorIndex');
+$routes->get('/estagiario', 'UsuarioController::estagiarioIndex');
+$routes->post('/cadastro', 'UsuarioController::cadastrarUsuarioController');
+$routes->post('/cadastro/estagiario', 'UsuarioController::cadastrarEstagiario');
+$routes->post('/login', 'UsuarioController::fazerLogin');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

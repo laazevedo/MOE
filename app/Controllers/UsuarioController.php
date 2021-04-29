@@ -9,12 +9,51 @@ use CodeIgniter\Controller;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\HTTP\IncomingRequest;
 
-class Cadastro extends Controller
+class UsuarioController extends Controller
 {
 
 	public function index()
 	{
 		return view('cadastro');
+	}
+
+	public function empregadorIndex()
+	{
+		return view('empregador-home');
+	}
+
+	public function estagiarioIndex()
+	{
+		return view('estagiario-home');
+	}
+
+	public function fazerLogin()
+	{
+		helper(['form']);
+		$request = \Config\Services::request();
+		$email = $request->getVar('email');
+
+		$regras = [
+			'email' => 'required|min_length[6]|max_length[255]|valid_email',
+			'senha' => 'required|min_length[6]|max_length[255]|validarUsuario[email, senha]'
+		];
+		$erros = [
+			'senha' =>
+			[
+				'validarUsuario' => 'Email e/ou senha incorretos'
+			]
+		];
+		if (!$this->validate($regras, $erros)) {
+			$data['validacao'] = $this->validator;
+			return view('login', $data);
+		} else {
+			$model = new Usuario();
+			$usuario = $model->where('email', $email)->first();
+			if ($usuario['tipo'] == 'empregador')
+				return redirect()->to('/empregador');
+			else
+				return redirect()->to('/estagiario');
+		}
 	}
 
 	public function cadastrarUsuario()
@@ -110,5 +149,31 @@ class Cadastro extends Controller
 
 			return redirect()->to('/');
 		}
+	}
+
+	public function enviarEmail()
+	{
+		$config = [
+			'protocol' => 'smtp',
+			'smtp_host' => 'smtp.mailtrap.io',
+			'smtp_port' => 2525,
+			'smtp_user' => '7c9a7499bbe6a8',
+			'smtp_pass' => '09330f40a19eff',
+			'crlf' => "\r\n",
+			'newline' => "\r\n"
+		];
+
+		$emailUsuario = 'alyse8305@uorak.com';
+		$email = \Config\Services::email();
+
+		$email->initialize($config);
+		$email->setFrom('teste@teste.com', 'MOE');
+		$email->setTo($emailUsuario);
+
+		$email->setSubject('Email Test');
+		$email->setMessage('<p>Testing the email class.</p>');
+
+		if ($email->send())
+			error_log("ok");
 	}
 }

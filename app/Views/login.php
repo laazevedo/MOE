@@ -24,7 +24,7 @@
                     <div class="form h-100 contact-wrap p-5">
                         <div class="container-fluid">
                             <h1 class="align-self-center">Login - MOE</h1>
-                            <form method="post">
+                            <form action="login" method="post">
 
                                 <div class="form-floating mb-3">
                                     <input type="email" class="form-control" id="email" name="email" required>
@@ -33,7 +33,13 @@
                                 <div class="form-floating">
                                     <input type="password" class="form-control" id="senha" name="senha" minlength="6" required>
                                     <label for="floatingPassword">Senha</label>
+                                    <button type="submit" class="btn btn-primary">Entrar</button>
                                 </div>
+                                <?php if (isset($validacao)) : ?>
+                                    <div class="alert alert-danger" role="alert">
+                                        <?= $validacao->listErrors() ?>
+                                    </div>
+                                <?php endif; ?>
                             </form>
                             <div id="formFooter">
                                 <!-- TODO - Ajustar class -->
