@@ -13,7 +13,7 @@
     <title>Login</title>
 </head>
 
-<body class="row justify-content-around">
+<body class="justify-content-around">
 
     <div class="container d-grid gap-1 mx-auto"></div>
 

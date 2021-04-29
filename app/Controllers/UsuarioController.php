@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Database\Migrations\Empregador;
 use App\Models\Estagiario;
 use App\Models\Usuario;
 use CodeIgniter\Controller;
@@ -148,6 +149,65 @@ class UsuarioController extends Controller
 			$estagiario->save($dados);
 
 			return redirect()->to('/');
+		}
+	}
+
+
+	public function cadastrarEmpregador(){
+		helper(['form']);
+		$request = \Config\Services::request();
+
+		$nomeEmpresa = $request->getVar('nomeEmpresa');
+		$enderecoEmpresa = $request->getVar("enderecoEmpresa");
+		$nomePessoaContato = $request->getVar("nomePessoaContato");
+		$descricaoEmpresa = $request->getVar("descricaoEmpresa");
+		$descricaoProdutos = $request->getVar("descricaoProdutos");
+		$usuarioId = $request->getVar("usuarioId");
+
+		// Dados usuário
+		$email = $request->getVar('email');
+		$senha = $request->getVar("senha");
+		$tipo = $request->getVar("tipo");
+
+		$regras = [
+			'nomeEmpresa' => 'required|min_length[10]|max_length[255]',
+			'enderecoEmpresa' => 'required|min_length[6]|max_length[255]',
+			'nomePessoaContato' => 'required|min_length[6]|max_length[255]'
+		];
+		//TODO - PROCURAR COMO TRADUZIR MENSAGEM DE ERRO
+		if (!$this->validate($regras)) {
+			$data = [
+				'email' => $email,
+				'senha' => $senha,
+				'tipo' => $tipo,
+				'nomeEmpresa' => $nomeEmpresa,
+				'enderecoEmpresa' => $enderecoEmpresa,
+				'nomePessoaContato' => $nomePessoaContato,
+				'descricaoEmpresa' => $descricaoEmpresa,
+				'validacao' => $this->validator
+			];
+			return view('cadastro-empregador', $data);
+		} else {
+			$usuario = new Usuario();
+			$dados = [
+				'email' => $email,
+				'senha' => $senha,
+				'tipo' => $tipo
+			];
+			$usuario->save($dados);
+			$usuarioId = $usuario->getInsertID();
+
+			$empregador = new Empregador();
+			$dados = [
+				'nomeEmpresa' => $nomeEmpresa,
+				'enderecoEmpresa' => $enderecoEmpresa,
+				'nomePessoaContato' => $nomePessoaContato,
+				'descricaoEmpresa' => $descricaoEmpresa,
+				'usuarioId' => $usuarioId
+			];
+			$empregador->save($dados);
+
+			return redirect()->to('empregador-home');
 		}
 	}
 
