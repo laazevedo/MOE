@@ -7,10 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/public/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
     <title>Login</title>
+    <style>
+	body,
+		html {
+			margin: 50;
+			padding: 50;
+			height: 100%;		
+		}
+        #spacing{
+            padding: 30px;
+        }
+	</style>
 </head>
 
 <body class="justify-content-around">
@@ -30,21 +41,27 @@
                                     <input type="email" class="form-control" id="email" name="email" required>
                                     <label for="floatingInput">E-mail</label>
                                 </div>
+
                                 <div class="form-floating">
                                     <input type="password" class="form-control" id="senha" name="senha" minlength="6" required>
                                     <label for="floatingPassword">Senha</label>
-                                    <button type="submit" class="btn btn-primary">Entrar</button>
                                 </div>
+
+                                <div class="mx-auto" id="spacing" style="width: 400px;">
+                                    <div class="d-grid gap-2 col-6 mx-auto">
+                                        <button class="btn btn-primary" type="button submit">Entrar</button>
+                                        <a class="btn  btn-info" href="cadastro" role="button">Cadastrar</a>
+                                    </div>
+                                </div>
+
+
                                 <?php if (isset($validacao)) : ?>
                                     <div class="alert alert-danger" role="alert">
                                         <?= $validacao->listErrors() ?>
                                     </div>
                                 <?php endif; ?>
+
                             </form>
-                            <div id="formFooter">
-                                <!-- TODO - Ajustar class -->
-                                <a href="cadastro">Criar conta</a>
-                            </div>
                         </div>
                     </div>
                 </div>
