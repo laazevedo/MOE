@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt">
 
 <head>
     <!-- Required meta tags -->
@@ -36,17 +36,6 @@
                                     <small id="senhaHelp" class="form-text text-muted">No mínimo 6 caracteres, com uma letra maiúscula, um caractere especial e um caractere numérico.</small>
                                 </div>
 
-                                <!-- <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Informe seu email" required>
-                                </div> -->
-
-                                <!-- <div class="form-group">
-                                    <label for="senha">Senha</label>
-                                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Informe a senha" minlength="6" required>
-                                    <small id="senhaHelp" class="form-text text-muted">No mínimo 6 caracteres, com uma letra maiúscula, um caractere especial e um caractere numérico.</small>
-                                </div> -->
-
                                 <div></div>
                                 <div class="form-floating">
                                     <input type="password" class="form-control" id="repetirSenha" name="repetirSenha" placeholder="Informe a senha" minlength="6" required>
@@ -54,37 +43,16 @@
                                     <small id="senhaHelp" class="form-text text-muted">Deve ser igual à senha informada no campo anterior.</small>
                                 </div>
 
-                                <!-- <div class="form-group">
-                                    <label for="repetirSenha">Repetir senha</label>
-                                    <input type="password" class="form-control" id="repetirSenha" name="repetirSenha" placeholder="Informe a senha" minlength="6" required>
-                                    <small id="repetirSenhaHelp" class="form-text text-muted">Deve ser igual à senha informada no campo anterior</small>
-                                </div> -->
-
-                                <!-- <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="tipo" id="estagiario" value="estagiario" checked>
-                                    <label class="form-check-label" for="estagiario">
-                                        Estagiário
-                                    </label>
-                                </div> -->
-
-
-                                <!-- <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="tipo" id="empregador" value="empregador">
-                                    <label class="form-check-label" for="empregador">
-                                        Empregador
-                                    </label>
-                                </div> -->
-
                                 <div class="d-grid gap-2 col-6 mx-auto">
                                     <div class="container col">
                                         <div><small class="form-text text-muted">Selecione o seu tipo de cadastro: </small></div>
 
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="tipo" id="estagiario" value="option1">
+                                            <input class="form-check-input" type="radio" name="tipo" id="estagiario" value="estagiario">
                                             <label class="form-check-label" for="inlineRadio1">Estagiário</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="tipo" id="empregador" value="option2">
+                                            <input class="form-check-input" type="radio" name="tipo" id="empregador" value="empregador">
                                             <label class="form-check-label" for="inlineRadio2">Empregador</label>
                                         </div>
                                     </div>
