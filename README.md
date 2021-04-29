@@ -2,9 +2,10 @@
 
 ## Alunos
 Larissa Santos de Azevedo
+
 Gustavo Antunes
 
-Para executar o projeto:
+## Para executar o projeto:
 1. Crie um banco de dados com o nome db_moe por meio do phpmyadmin;
 2. Faça o download do XAMPP e inicialize MySQL e Apache
 3. Faça o download desse projeto
