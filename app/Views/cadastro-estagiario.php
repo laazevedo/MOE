@@ -15,6 +15,11 @@
 <body>
     <div class="container">
         <h1>Cadastro Estagiário</h1>
+        <?php if (isset($validacao)) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $validacao->listErrors() ?>
+            </div>
+        <?php endif; ?>
         <form action="cadastro/estagiario" method="post">
             <div class="form-group">
                 <label for="nomeEstagiario">Nome</label>
@@ -36,11 +41,6 @@
                 <label for="semestre">Semestre</label>
                 <input type="number" class="form-control" id="semestre" name="semestre" placeholder="Informe o semestre do curso" min="1" max="20" required>
             </div>
-            <?php if (isset($validacao)) : ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= $validacao->listErrors() ?>
-                </div>
-            <?php endif; ?>
             <div>
                 <input type="hidden" name="email" value=<?= $email ?>>
                 <input type="hidden" name="senha" value=<?= $senha ?>>

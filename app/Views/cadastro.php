@@ -24,6 +24,11 @@
                     <div class="form h-100 contact-wrap p-5">
                         <div class="container-fluid">
                             <h1 class="align-self-center">Cadastro - MOE</h1>
+                            <?php if (isset($validacao)) : ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <?= $validacao->listErrors() ?>
+                                </div>
+                            <?php endif; ?>
                             <form method="post">
 
                                 <div class="form-floating mb-3">
@@ -58,15 +63,6 @@
                                     </div>
                                     <button type="submit" class="btn btn-outline-primary btn-lg">Criar Conta</button>
                                 </div>
-
-
-                                <?php if (isset($validacao)) : ?>
-                                    <div class="alert alert-danger" role="alert">
-                                        <?= $validacao->listErrors() ?>
-                                    </div>
-                                <?php endif; ?>
-
-
                             </form>
                         </div>
                     </div>

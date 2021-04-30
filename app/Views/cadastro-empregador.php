@@ -15,6 +15,11 @@
 <body>
     <div class="container">
         <h1>Cadastro Empresa/Empregador</h1>
+        <?php if (isset($validacao)) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $validacao->listErrors() ?>
+            </div>
+        <?php endif; ?>
         <form action="cadastro/empregador" method="post">
             <div class="form-group">
                 <label for="nomeEmpresa">Título da Empresa</label>
@@ -36,11 +41,6 @@
                 <label for="descricaoEmpresa">Descrição dos Produtos da Empresa</label>
                 <textarea class="form-control" id="descricaoProdutos" name="descricaoProdutos" placeholder="Informe a descrição dos produtos da empresa"></textarea>
             </div>
-            <?php if (isset($validacao)) : ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= $validacao->listErrors() ?>
-                </div>
-            <?php endif; ?>
             <div>
                 <input type="hidden" name="email" value=<?= $email ?>>
                 <input type="hidden" name="senha" value=<?= $senha ?>>

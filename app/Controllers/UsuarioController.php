@@ -44,6 +44,7 @@ class UsuarioController extends Controller
 				'validarUsuario' => 'Email e/ou senha incorretos'
 			]
 		];
+
 		if (!$this->validate($regras, $erros)) {
 			$data['validacao'] = $this->validator;
 			return view('login', $data);
@@ -72,8 +73,18 @@ class UsuarioController extends Controller
 			'senha' => 'required|min_length[6]|max_length[255]',
 			'repetirSenha' => 'matches[senha]',
 		];
-		//TODO - PROCURAR COMO TRADUZIR MENSAGEM DE ERRO
-		if (!$this->validate($regras)) {
+		$erros = [
+			'repetirSenha' =>
+			[
+				'matches' => 'As senhas devem ser iguais'
+			],
+			'email' =>
+			[
+				'is_unique' => 'O email já está cadastrado'
+			]
+		];
+
+		if (!$this->validate($regras, $erros)) {
 			$data['validacao'] = $this->validator;
 			return view('cadastro', $data);
 		} else {
@@ -113,8 +124,17 @@ class UsuarioController extends Controller
 			'nomeEstagiario' => 'required|min_length[10]|max_length[255]',
 			'curso' => 'required|min_length[6]|max_length[255]',
 		];
-		//TODO - PROCURAR COMO TRADUZIR MENSAGEM DE ERRO
-		if (!$this->validate($regras)) {
+		$erros = [
+			'nomeEstagiario' =>
+			[
+				'min_length' => 'O nome deve conter no mínimo 10 caracteres'
+			],
+			'curso' =>
+			[
+				'min_length' => 'O curso deve conter no mínimo 6 caracteres'
+			]
+		];
+		if (!$this->validate($regras, $erros)) {
 			$data = [
 				'email' => $email,
 				'senha' => $senha,
@@ -173,9 +193,18 @@ class UsuarioController extends Controller
 		$regras = [
 			'nomeEmpresa' => 'required|max_length[255]',
 			'enderecoEmpresa' => 'required|min_length[6]|max_length[255]',
-			'nomePessoaContato' => 'required|min_length[6]|max_length[255]'
+			'nomePessoaContato' => 'required|min_length[10]|max_length[255]'
 		];
-		//TODO - PROCURAR COMO TRADUZIR MENSAGEM DE ERRO
+		$erros = [
+			'enderecoEmpresa' =>
+			[
+				'min_length' => 'O endereço deve conter no mínimo 6 caracteres'
+			],
+			'nomePessoaContato' =>
+			[
+				'min_length' => 'O nome da pessoa de contato deve conter no mínimo 10 caracteres'
+			]
+		];
 		if (!$this->validate($regras)) {
 			$data = [
 				'email' => $email,
