@@ -68,7 +68,7 @@ class UsuarioController extends Controller
 		//TODO - VERIFICAR SE SENHA TEM CARACTERES ESPECIAIS
 		$regras = [
 			'email' => 'required|min_length[6]|max_length[255]|valid_email|is_unique[usuarios.email]',
-			'senha' => 'required|min_length[6]|max_length[255]',
+			'senha' => 'required|min_length[6]|max_length[255]|regex_match[^(?=.*[A-Z])$]',
 			'repetirSenha' => 'matches[senha]',
 		];
 		//TODO - PROCURAR COMO TRADUZIR MENSAGEM DE ERRO
@@ -149,31 +149,5 @@ class UsuarioController extends Controller
 
 			return redirect()->to('/');
 		}
-	}
-
-	public function enviarEmail()
-	{
-		$config = [
-			'protocol' => 'smtp',
-			'smtp_host' => 'smtp.mailtrap.io',
-			'smtp_port' => 2525,
-			'smtp_user' => '7c9a7499bbe6a8',
-			'smtp_pass' => '09330f40a19eff',
-			'crlf' => "\r\n",
-			'newline' => "\r\n"
-		];
-
-		$emailUsuario = 'alyse8305@uorak.com';
-		$email = \Config\Services::email();
-
-		$email->initialize($config);
-		$email->setFrom('teste@teste.com', 'MOE');
-		$email->setTo($emailUsuario);
-
-		$email->setSubject('Email Test');
-		$email->setMessage('<p>Testing the email class.</p>');
-
-		if ($email->send())
-			error_log("ok");
 	}
 }

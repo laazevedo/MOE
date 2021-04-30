@@ -36,7 +36,7 @@ $routes->get('/cadastro', 'UsuarioController::index');
 $routes->get('/email', 'UsuarioController::enviarEmail');
 $routes->get('/empregador', 'UsuarioController::empregadorIndex');
 $routes->get('/estagiario', 'UsuarioController::estagiarioIndex');
-$routes->post('/cadastro', 'UsuarioController::cadastrarUsuarioController');
+$routes->post('/cadastro', 'UsuarioController::cadastrarUsuario');
 $routes->post('/cadastro/estagiario', 'UsuarioController::cadastrarEstagiario');
 $routes->post('/login', 'UsuarioController::fazerLogin');
 /*

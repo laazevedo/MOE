@@ -48,7 +48,7 @@
                                         <div><small class="form-text text-muted">Selecione o seu tipo de cadastro: </small></div>
 
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="tipo" id="estagiario" value="estagiario">
+                                            <input class="form-check-input" type="radio" name="tipo" id="estagiario" value="estagiario" checked>
                                             <label class="form-check-label" for="inlineRadio1">Estagiário</label>
                                         </div>
                                         <div class="form-check form-check-inline">
