@@ -18,21 +18,24 @@
         <form action="cadastro/empregador" method="post">
             <div class="form-group">
                 <label for="nomeEmpresa">Título da Empresa</label>
-                <input class="form-control" id="nomeEmpresa" name="nomeEmpresa" placeholder="Informe a empresa" required>
+                <input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" placeholder="Informe a empresa" required />
             </div>
             <div class="form-group">
                 <label for="enderecoEmpresa">Endereço da Empresa</label>
-                <input class="form-control" id="enderecoEmpresa" name="enderecoEmpresa" placeholder="Informe endereço da empresa" required>
+                <input type="text" class="form-control" id="enderecoEmpresa" name="enderecoEmpresa" placeholder="Informe endereço da empresa" required />
             </div>
             <div class="form-group">
                 <label for="nomePessoaContato">Nome do Responsável pela Empresa(Empregador)</label>
-                <textarea class="form-control" id="nomePessoaContato" name="nomePessoaContato" placeholder="Informe o nome do responsável" required></textarea>
+                <input type="text" class="form-control" id="nomePessoaContato" name="nomePessoaContato" placeholder="Informe o nome do responsável" required />
             </div>
             <div class="form-group">
                 <label for="descricaoEmpresa">Descrição da Empresa</label>
-                <input class="form-control" id="descricaoEmpresa" name="descricaoEmpresa" placeholder="Informe a descrição da empresa"/>
+                <textarea class="form-control" id="descricaoEmpresa" name="descricaoEmpresa" placeholder="Informe a descrição da empresa"></textarea>
             </div>
-
+            <div class="form-group">
+                <label for="descricaoEmpresa">Descrição dos Produtos da Empresa</label>
+                <textarea class="form-control" id="descricaoProdutos" name="descricaoProdutos" placeholder="Informe a descrição dos produtos da empresa"></textarea>
+            </div>
             <?php if (isset($validacao)) : ?>
                 <div class="alert alert-danger" role="alert">
                     <?= $validacao->listErrors() ?>

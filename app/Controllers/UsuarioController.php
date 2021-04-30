@@ -3,9 +3,9 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Database\Migrations\Empregador;
 use App\Models\Estagiario;
 use App\Models\Usuario;
+use App\Models\Empregador;
 use CodeIgniter\Controller;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -69,7 +69,7 @@ class UsuarioController extends Controller
 		//TODO - VERIFICAR SE SENHA TEM CARACTERES ESPECIAIS
 		$regras = [
 			'email' => 'required|min_length[6]|max_length[255]|valid_email|is_unique[usuarios.email]',
-			'senha' => 'required|min_length[6]|max_length[255]|regex_match[^(?=.*[A-Z])$]',
+			'senha' => 'required|min_length[6]|max_length[255]',
 			'repetirSenha' => 'matches[senha]',
 		];
 		//TODO - PROCURAR COMO TRADUZIR MENSAGEM DE ERRO
@@ -171,7 +171,7 @@ class UsuarioController extends Controller
 		$tipo = $request->getVar("tipo");
 
 		$regras = [
-			'nomeEmpresa' => 'required|min_length[10]|max_length[255]',
+			'nomeEmpresa' => 'required|max_length[255]',
 			'enderecoEmpresa' => 'required|min_length[6]|max_length[255]',
 			'nomePessoaContato' => 'required|min_length[6]|max_length[255]'
 		];
@@ -185,6 +185,7 @@ class UsuarioController extends Controller
 				'enderecoEmpresa' => $enderecoEmpresa,
 				'nomePessoaContato' => $nomePessoaContato,
 				'descricaoEmpresa' => $descricaoEmpresa,
+				'descricaoProdutos' => $descricaoProdutos,
 				'validacao' => $this->validator
 			];
 			return view('cadastro-empregador', $data);
@@ -204,11 +205,12 @@ class UsuarioController extends Controller
 				'enderecoEmpresa' => $enderecoEmpresa,
 				'nomePessoaContato' => $nomePessoaContato,
 				'descricaoEmpresa' => $descricaoEmpresa,
+				'descricaoProdutos' => $descricaoProdutos,
 				'usuarioId' => $usuarioId
 			];
 			$empregador->save($dados);
 
-			return redirect()->to('empregador-home');
+			return redirect()->to('/');
 		}
 	}
 
