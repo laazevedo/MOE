@@ -28,6 +28,7 @@ class UsuarioController extends Controller
 		return view('estagiario-home');
 	}
 
+	// Função para verificar login
 	public function fazerLogin()
 	{
 		helper(['form']);
@@ -38,17 +39,20 @@ class UsuarioController extends Controller
 			'email' => 'required|min_length[6]|max_length[255]|valid_email',
 			'senha' => 'required|min_length[6]|max_length[255]|validarUsuario[email, senha]'
 		];
+		// Mensagem de erro para regra customizada validarUsuario 
 		$erros = [
 			'senha' =>
 			[
 				'validarUsuario' => 'Email e/ou senha incorretos'
 			]
 		];
-
+		// Verifica se os dados informados estão incorretos
 		if (!$this->validate($regras, $erros)) {
 			$data['validacao'] = $this->validator;
 			return view('login', $data);
 		} else {
+			// Encaminha para a página inicial de acordo com o tipo de usuário
+			// TODO - CRIAR SESSAO AO FAZER LOGIN
 			$model = new Usuario();
 			$usuario = $model->where('email', $email)->first();
 			if ($usuario['tipo'] == 'empregador')
@@ -58,14 +62,15 @@ class UsuarioController extends Controller
 		}
 	}
 
-	public function cadastrarUsuario()
+	// Função para verificar se dados de usuário no cadastro estão corretos
+	public function verificarUsuario()
 	{
 		helper(['form']);
 		$request = \Config\Services::request();
 
 		$email = $request->getVar('email');
-		$senha = $request->getVar("senha");
-		$tipo = $request->getVar("tipo");
+		$senha = $request->getVar('senha');
+		$tipo = $request->getVar('tipo');
 
 		//TODO - VERIFICAR SE SENHA TEM CARACTERES ESPECIAIS
 		$regras = [
@@ -73,6 +78,7 @@ class UsuarioController extends Controller
 			'senha' => 'required|min_length[6]|max_length[255]',
 			'repetirSenha' => 'matches[senha]',
 		];
+		// Mensagens de erro customizadas
 		$erros = [
 			'repetirSenha' =>
 			[
@@ -83,7 +89,7 @@ class UsuarioController extends Controller
 				'is_unique' => 'O email já está cadastrado'
 			]
 		];
-
+		// Verifica se os dados estão incorretos
 		if (!$this->validate($regras, $erros)) {
 			$data['validacao'] = $this->validator;
 			return view('cadastro', $data);
@@ -93,7 +99,7 @@ class UsuarioController extends Controller
 				'senha' => $senha,
 				'tipo' => $tipo
 			];
-
+			// De acordo com o tipo informado, continua para a próxima tela de cadastro
 			if ($tipo == 'empregador')
 				return view('cadastro-empregador', $data);
 			else
@@ -101,29 +107,32 @@ class UsuarioController extends Controller
 		}
 	}
 
+	// Função para cadastrar Estagiário
 	public function cadastrarEstagiario()
 	{
 		helper(['form']);
 		$request = \Config\Services::request();
 
 		$nome = $request->getVar('nomeEstagiario');
-		$curso = $request->getVar("curso");
-		$minicurriculo = $request->getVar("minicurriculo");
-		$anoIngresso = $request->getVar("anoIngresso");
-		$semestre = $request->getVar("semestre");
-		$usuarioId = $request->getVar("usuarioId");
+		$curso = $request->getVar('curso');
+		$minicurriculo = $request->getVar('minicurriculo');
+		$anoIngresso = $request->getVar('anoIngresso');
+		$semestre = $request->getVar('semestre');
+		$usuarioId = $request->getVar('usuarioId');
 
 		// Dados usuário
 		$email = $request->getVar('email');
-		$senha = $request->getVar("senha");
-		$tipo = $request->getVar("tipo");
+		$senha = $request->getVar('senha');
+		$tipo = $request->getVar('tipo');
 
+		// Criação de data com o ano informado
 		$dataIngresso = Time::createFromDate($anoIngresso);
 
 		$regras = [
 			'nomeEstagiario' => 'required|min_length[10]|max_length[255]',
 			'curso' => 'required|min_length[6]|max_length[255]',
 		];
+		// Mensagens de erro customizadas
 		$erros = [
 			'nomeEstagiario' =>
 			[
@@ -134,6 +143,7 @@ class UsuarioController extends Controller
 				'min_length' => 'O curso deve conter no mínimo 6 caracteres'
 			]
 		];
+		// Verifica se os dados estão incorretos
 		if (!$this->validate($regras, $erros)) {
 			$data = [
 				'email' => $email,
@@ -154,9 +164,11 @@ class UsuarioController extends Controller
 				'senha' => $senha,
 				'tipo' => $tipo
 			];
+			// Cria um usuário no banco com o tipo estagiário
 			$usuario->save($dados);
 			$usuarioId = $usuario->getInsertID();
 
+			// Salva o estagiário no banco com o usuarioId cadastrado acima
 			$estagiario = new Estagiario();
 			$dados = [
 				'nome' => $nome,
@@ -172,29 +184,30 @@ class UsuarioController extends Controller
 		}
 	}
 
-
+	// Função para cadastrar Empregador
 	public function cadastrarEmpregador()
 	{
 		helper(['form']);
 		$request = \Config\Services::request();
 
 		$nomeEmpresa = $request->getVar('nomeEmpresa');
-		$enderecoEmpresa = $request->getVar("enderecoEmpresa");
-		$nomePessoaContato = $request->getVar("nomePessoaContato");
-		$descricaoEmpresa = $request->getVar("descricaoEmpresa");
-		$descricaoProdutos = $request->getVar("descricaoProdutos");
-		$usuarioId = $request->getVar("usuarioId");
+		$enderecoEmpresa = $request->getVar('enderecoEmpresa');
+		$nomePessoaContato = $request->getVar('nomePessoaContato');
+		$descricaoEmpresa = $request->getVar('descricaoEmpresa');
+		$descricaoProdutos = $request->getVar('descricaoProdutos');
+		$usuarioId = $request->getVar('usuarioId');
 
 		// Dados usuário
 		$email = $request->getVar('email');
-		$senha = $request->getVar("senha");
-		$tipo = $request->getVar("tipo");
+		$senha = $request->getVar('senha');
+		$tipo = $request->getVar('tipo');
 
 		$regras = [
 			'nomeEmpresa' => 'required|max_length[255]',
 			'enderecoEmpresa' => 'required|min_length[6]|max_length[255]',
 			'nomePessoaContato' => 'required|min_length[10]|max_length[255]'
 		];
+		// Mensagens de erro customizadas
 		$erros = [
 			'enderecoEmpresa' =>
 			[
@@ -205,7 +218,8 @@ class UsuarioController extends Controller
 				'min_length' => 'O nome da pessoa de contato deve conter no mínimo 10 caracteres'
 			]
 		];
-		if (!$this->validate($regras)) {
+		// Verifica se os dados estão incorretos
+		if (!$this->validate($regras, $erros)) {
 			$data = [
 				'email' => $email,
 				'senha' => $senha,
@@ -219,6 +233,7 @@ class UsuarioController extends Controller
 			];
 			return view('cadastro-empregador', $data);
 		} else {
+			// Cria um usuário no banco com o tipo empregador
 			$usuario = new Usuario();
 			$dados = [
 				'email' => $email,
@@ -228,6 +243,7 @@ class UsuarioController extends Controller
 			$usuario->save($dados);
 			$usuarioId = $usuario->getInsertID();
 
+			// Salva o empregador no banco com o usuarioId cadastrado acima
 			$empregador = new Empregador();
 			$dados = [
 				'nomeEmpresa' => $nomeEmpresa,
@@ -243,6 +259,7 @@ class UsuarioController extends Controller
 		}
 	}
 
+	// EM TESTE - Função para enviar email de confirmação
 	public function enviarEmail()
 	{
 		$config = [
@@ -251,8 +268,8 @@ class UsuarioController extends Controller
 			'smtp_port' => 2525,
 			'smtp_user' => '7c9a7499bbe6a8',
 			'smtp_pass' => '09330f40a19eff',
-			'crlf' => "\r\n",
-			'newline' => "\r\n"
+			'crlf' => '\r\n',
+			'newline' => '\r\n'
 		];
 
 		$emailUsuario = 'alyse8305@uorak.com';
@@ -266,6 +283,6 @@ class UsuarioController extends Controller
 		$email->setMessage('<p>Testing the email class.</p>');
 
 		if ($email->send())
-			error_log("ok");
+			error_log('ok');
 	}
 }

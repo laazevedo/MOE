@@ -6,6 +6,7 @@ use App\Models\Usuario;
 
 class RegraUsuario
 {
+	// Regra para verificar login
 	public function validarUsuario(string $str, string $fields, array $data): bool
 	{
 		$model = new Usuario();
