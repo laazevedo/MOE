@@ -88,8 +88,6 @@ class EmpregadorController extends BaseController
 	{
 		$estagiarioId = session()->get('usuarioId');
 		$interesse = new InteresseVaga();
-		error_log($estagiarioId);
-		error_log($empregadorId);
 		$dados = [
 			'estagiarioId' => $estagiarioId,
 			'empregadorId' => $empregadorId

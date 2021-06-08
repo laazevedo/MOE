@@ -23,8 +23,8 @@
                 <div class="col-md-7">
                     <div class="form h-100 contact-wrap p-5">
                         <div class="container-fluid">
-                            <h1 class="align-self-center">Bem-vindo estagiário</h1>
-
+                            <h1 class="align-self-center">Bem-vindo(a), <?php echo $nome ?></h1>
+                            <a href='/lista/empregadores' class="btn btn-primary">Consultar empresas cadastradas</a>
                         </div>
                     </div>
                 </div>

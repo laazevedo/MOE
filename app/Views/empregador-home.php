@@ -23,7 +23,9 @@
                 <div class="col-md-7">
                     <div class="form h-100 contact-wrap p-5">
                         <div class="container-fluid">
-                            <h1 class="align-self-center">Bem-vindo empregador</h1>
+                            <h1 class="align-self-center">Bem-vindo(a), <?php echo $nome ?></h1>
+                            <a href='/cadastro/vaga' class="btn btn-primary">Cadastrar vaga</a>
+                            <div><a href='/logout' class="card-link mt-4">Logout</a></div>
                         </div>
                     </div>
                 </div>

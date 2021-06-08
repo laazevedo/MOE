@@ -20,12 +20,25 @@ class UsuarioController extends Controller
 
 	public function empregadorIndex()
 	{
-		return view('empregador-home');
+		$db = \Config\Database::connect();
+		$empregadorId = session()->get('usuarioId');
+		$empregador = $db->table('empregadores')->where('usuarioId', $empregadorId)->get()->getFirstRow();
+		$dados = [
+			'nome' => $empregador->nomeEmpresa
+		];
+		return view('empregador-home', $dados);
 	}
 
 	public function estagiarioIndex()
 	{
-		return view('estagiario-home');
+		$db = \Config\Database::connect();
+		$estagiarioId = session()->get('usuarioId');
+		$estagiario = $db->table('estagiarios')->where('usuarioId', $estagiarioId)->get()->getFirstRow();
+		error_log($estagiario->nome);
+		$dados = [
+			'nome' => $estagiario->nome
+		];
+		return view('estagiario-home', $dados);
 	}
 
 	// Função para verificar login
@@ -66,6 +79,12 @@ class UsuarioController extends Controller
 		}
 	}
 
+	public function fazerLogout()
+	{
+		$session = session();
+		$session->destroy();
+		return view('login');
+	}
 	// Função para verificar se dados de usuário no cadastro estão corretos
 	public function verificarUsuario()
 	{
