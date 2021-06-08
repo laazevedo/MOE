@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
-    <title>Cadastro</title>
+    <title>Estagiários interessados</title>
 </head>
 
 <body class="row justify-content-around">
@@ -23,9 +23,17 @@
                 <div class="col-md-7">
                     <div class="form h-100 contact-wrap p-5">
                         <div class="container-fluid">
-                            <h1 class="align-self-center">Bem-vindo(a), <?php echo $nome ?></h1>
-                            <a href='/lista/empregadores' class="btn btn-primary">Consultar empresas cadastradas</a>
-                            <div><a href='/logout' class="card-link mt-4">Logout</a></div>
+                            <h3>Estagiários interessados</h3>
+                            <?php foreach ($estagiarios as $estagiario) : ?>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= $estagiario->nome ?></h5>
+                                        <p class="card-text"><?= "Curso: " . $estagiario->curso ?></p>
+                                        <p class="card-text"><?= "Minicurrículo: " . $estagiario->minicurriculo ?></p>
+                                        <p class="card-text"><?= "Semestre: " . $estagiario->semestre ?></p>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>

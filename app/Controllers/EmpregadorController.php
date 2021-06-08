@@ -84,6 +84,24 @@ class EmpregadorController extends BaseController
 		return view('lista-empregadores', $data);
 	}
 
+	public function getEstagiariosInteressados()
+	{
+		$db = \Config\Database::connect();
+		$empregadorId = session()->get('usuarioId');
+		$builder = $db->table('interessevaga');
+		$builder->where('empregadorId', $empregadorId);
+		$query = $builder->get();
+		$estagiarios = array();
+		foreach ($query->getResult() as $e) {
+			$estagiario = $db->table('estagiarios')->where('usuarioId', $e->estagiarioId)->get()->getFirstRow();
+			array_push($estagiarios, $estagiario);
+		}
+		$data = [
+			'estagiarios' => $estagiarios,
+		];
+		return view('lista-estagiarios-interessados', $data);
+	}
+
 	public function cadastrarInteresse($empregadorId)
 	{
 		$estagiarioId = session()->get('usuarioId');

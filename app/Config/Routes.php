@@ -44,6 +44,7 @@ $routes->post('/cadastro/vaga', 'EmpregadorController::cadastrarVaga');
 $routes->post('/login', 'UsuarioController::fazerLogin');
 $routes->get('/logout', 'UsuarioController::fazerLogout');
 $routes->get('/lista/empregadores', 'EmpregadorController::getEmpregadores');
+$routes->get('/lista/estagiarios-interessados', 'EmpregadorController::getEstagiariosInteressados');
 $routes->get('/lista/interesse/(:num)', 'EmpregadorController::cadastrarInteresse/$1');
 $routes->get('/lista/desinteresse/(:num)', 'EmpregadorController::descadastrarInteresse/$1');
 /*
