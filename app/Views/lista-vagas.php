@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
-    <title>Cadastro</title>
+    <title>Lista empregadores</title>
 </head>
 
 <body class="row justify-content-around">
@@ -23,16 +23,25 @@
                 <div class="col-md-7">
                     <div class="form h-100 contact-wrap p-5">
                         <div class="container-fluid">
-                            <h1 class="align-self-center">Bem-vindo(a), <?php echo $nome ?></h1>
-                            <div>
-                                <a href='/lista/empregadores' class="btn btn-primary">Consultar empresas cadastradas</a>
-                            </div>
-                            <div>
-                                <a href='/lista/vagas' class="mt-2 btn btn-primary">Consultar vagas cadastradas</a>
-                            </div>
-                            <div>
-                                <a href='/logout' class="card-link mt-4">Logout</a>
-                            </div>
+                            <h3>Vagas</h3>
+                            <?php foreach ($vagas as $vaga) : ?>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= $vaga->descricaoResumida ?></h5>
+                                        <p class="card-text"><?= "Atividades: " . $vaga->listaDeAtividades ?></p>
+                                        <p class="card-text"><?= "Habilidades: " . $vaga->habilidadesRequeridas ?></p>
+                                        <p class="card-text"><?= "Semestre: " . $vaga->semestreRequerido ?></p>
+                                        <p class="card-text"><?= "Carga horária: " . $vaga->quantidadeHoras ?></p>
+                                        <p class="card-text"><?= "Remuneração: R$" . $vaga->remuneracao ?></p>
+                                        <?php if (in_array($vaga->id, $interesse)) : ?>
+                                            <a href=<?= 'desinteresse/vaga/' . $vaga->id ?> class="btn btn-info">Descadastrar interesse</a>
+                                        <?php else : ?>
+                                            <a href=<?= 'interesse/vaga/' . $vaga->id ?> class="btn btn-primary">Cadastrar interesse</a>
+                                        <?php endif ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                            <a href='/estagiario' class="mt-4 btn btn-primary">Voltar</a>
                         </div>
                     </div>
                 </div>

@@ -4,10 +4,27 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\Vaga;
+use App\Models\InteresseEmpresa;
 use App\Models\InteresseVaga;
 
 class EmpregadorController extends BaseController
 {
+	public function getEstagiarioId()
+	{
+		$db = \Config\Database::connect();
+		$usuarioId = session()->get('usuarioId');
+		$query = $db->table('estagiarios')->where('usuarioId', $usuarioId)->get()->getFirstRow();
+		return $query->id;
+	}
+
+	public function getEmpregadorId()
+	{
+		$db = \Config\Database::connect();
+		$usuarioId = session()->get('usuarioId');
+		$query = $db->table('empregadores')->where('usuarioId', $usuarioId)->get()->getFirstRow();
+		return $query->id;
+	}
+
 	public function index()
 	{
 		return view('cadastro-vaga');
@@ -25,7 +42,7 @@ class EmpregadorController extends BaseController
 		$semestreRequerido = $request->getVar('semestreRequerido');
 		$quantidadeHoras = $request->getVar('quantidadeHoras');
 		$remuneracao = $request->getVar('remuneracao');
-		$empregadorId = session()->get('usuarioId');
+		$empregadorId = $this->getEmpregadorId();
 
 		$regras = [
 			'quantidadeHoras' => 'required|in_list[20, 30]',
@@ -71,8 +88,8 @@ class EmpregadorController extends BaseController
 	{
 		$db = \Config\Database::connect();
 		$empregadores_query = $db->table('empregadores')->get();
-		$estagiarioId = session()->get('usuarioId');
-		$interesse_query = $db->table('interesseVaga')->where('estagiarioId', $estagiarioId)->get();
+		$estagiarioId = $this->getEstagiarioId();
+		$interesse_query = $db->table('interesseEmpresa')->where('estagiarioId', $estagiarioId)->get();
 		$interesse = array();
 		foreach ($interesse_query->getResult() as $i) {
 			array_push($interesse, $i->empregadorId);
@@ -84,16 +101,33 @@ class EmpregadorController extends BaseController
 		return view('lista-empregadores', $data);
 	}
 
+	public function getVagas()
+	{
+		$db = \Config\Database::connect();
+		$empregadores_query = $db->table('vagas')->get();
+		$estagiarioId = $this->getEstagiarioId();
+		$interesse_query = $db->table('interesseVaga')->where('estagiarioId', $estagiarioId)->get();
+		$interesse = array();
+		foreach ($interesse_query->getResult() as $i) {
+			array_push($interesse, $i->vagaId);
+		}
+		$data = [
+			'vagas' => $empregadores_query->getResult(),
+			'interesse' => $interesse
+		];
+		return view('lista-vagas', $data);
+	}
+
 	public function getEstagiariosInteressados()
 	{
 		$db = \Config\Database::connect();
-		$empregadorId = session()->get('usuarioId');
-		$builder = $db->table('interessevaga');
+		$empregadorId = $this->getEmpregadorId();
+		$builder = $db->table('interesseEmpresa');
 		$builder->where('empregadorId', $empregadorId);
 		$query = $builder->get();
 		$estagiarios = array();
 		foreach ($query->getResult() as $e) {
-			$estagiario = $db->table('estagiarios')->where('usuarioId', $e->estagiarioId)->get()->getFirstRow();
+			$estagiario = $db->table('estagiarios')->where('id', $e->estagiarioId)->get()->getFirstRow();
 			array_push($estagiarios, $estagiario);
 		}
 		$data = [
@@ -104,8 +138,12 @@ class EmpregadorController extends BaseController
 
 	public function cadastrarInteresse($empregadorId)
 	{
-		$estagiarioId = session()->get('usuarioId');
-		$interesse = new InteresseVaga();
+		$db = \Config\Database::connect();
+
+		$estagiarioId = $this->getEstagiarioId();
+
+		$interesse = new InteresseEmpresa();
+
 		$dados = [
 			'estagiarioId' => $estagiarioId,
 			'empregadorId' => $empregadorId
@@ -113,15 +151,44 @@ class EmpregadorController extends BaseController
 		$interesse->save($dados);
 		return redirect()->to('/lista/empregadores');
 	}
+
 	public function descadastrarInteresse($empregadorId)
 	{
 		$db = \Config\Database::connect();
-		$builder = $db->table('interesseVaga');
-		$estagiarioId = session()->get('usuarioId');
+		$builder = $db->table('interesseEmpresa');
+
+		$estagiarioId = $this->getEstagiarioId();
+
 		$builder->delete([
 			'empregadorId' => $empregadorId,
 			'estagiarioId' => $estagiarioId,
 		]);
 		return redirect()->to('/lista/empregadores');
+	}
+
+	public function cadastrarInteresseVaga($vagaId)
+	{
+		$estagiarioId = $this->getEstagiarioId();
+
+		$interesse = new InteresseVaga();
+		$dados = [
+			'estagiarioId' => $estagiarioId,
+			'vagaId' => $vagaId
+		];
+		$interesse->save($dados);
+		return redirect()->to('/lista/vagas');
+	}
+
+	public function descadastrarInteresseVaga($vagaId)
+	{
+		$db = \Config\Database::connect();
+		$builder = $db->table('interesseVaga');
+
+		$estagiarioId = $this->getEstagiarioId();
+		$builder->delete([
+			'vagaId' => $vagaId,
+			'estagiarioId' => $estagiarioId,
+		]);
+		return redirect()->to('/lista/vagas');
 	}
 }

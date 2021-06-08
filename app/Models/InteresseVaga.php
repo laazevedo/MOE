@@ -9,5 +9,5 @@ class InteresseVaga extends Model
 {
 	protected $DBGroup              = 'default';
 	protected $table                = 'interesseVaga';
-	protected $allowedFields        = ['empregadorId', 'estagiarioId'];
+	protected $allowedFields        = ['vagaId', 'estagiarioId'];
 }

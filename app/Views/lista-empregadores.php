@@ -30,14 +30,15 @@
                                         <h5 class="card-title"><?= $empregador->nomeEmpresa ?></h5>
                                         <p class="card-text"><?= "Descrição: " . $empregador->descricaoEmpresa ?></p>
                                         <p class="card-text"><?= "Produtos: " . $empregador->descricaoProdutos ?></p>
-                                        <?php if (in_array($empregador->usuarioId, $interesse)) : ?>
-                                            <a href=<?= 'desinteresse/' . $empregador->usuarioId ?> class="btn btn-info">Descadastrar interesse</a>
+                                        <?php if (in_array($empregador->id, $interesse)) : ?>
+                                            <a href=<?= 'desinteresse/' . $empregador->id ?> class="btn btn-info">Descadastrar interesse</a>
                                         <?php else : ?>
-                                            <a href=<?= 'interesse/' . $empregador->usuarioId ?> class="btn btn-primary">Cadastrar interesse</a>
+                                            <a href=<?= 'interesse/' . $empregador->id ?> class="btn btn-primary">Cadastrar interesse</a>
                                         <?php endif ?>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
+                            <a href='/estagiario' class="mt-4 btn btn-primary">Voltar</a>
                         </div>
                     </div>
                 </div>

@@ -24,8 +24,15 @@
                     <div class="form h-100 contact-wrap p-5">
                         <div class="container-fluid">
                             <h1 class="align-self-center">Bem-vindo(a), <?php echo $nome ?></h1>
-                            <a href='/cadastro/vaga' class="btn btn-primary">Cadastrar vaga</a>
-                            <div><a href='/logout' class="card-link mt-4">Logout</a></div>
+                            <div>
+                                <a href='/cadastro/vaga' class="btn btn-primary">Cadastrar vaga</a>
+                            </div>
+                            <div>
+                                <a href='/lista/estagiarios-interessados' class="btn btn-primary mt-2">Estagiários Interessados</a>
+                            </div>
+                            <div>
+                                <a href='/logout' class="card-link mt-4">Logout</a>
+                            </div>
                         </div>
                     </div>
                 </div>

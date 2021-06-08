@@ -9,6 +9,12 @@ class Estagiario extends Migration
 	public function up()
 	{
 		$this->forge->addField([
+			'id'          => [
+				'type'           => 'INT',
+				'constraint'     => 5,
+				'unsigned'       => true,
+				'auto_increment' => true,
+			],
 			'usuarioId'          => [
 				'type'           => 'INT',
 				'constraint'     => 5,
@@ -34,8 +40,8 @@ class Estagiario extends Migration
 			]
 		]);
 		$this->forge->addKey('id', true);
-		$this->forge->addForeignKey('usuarioId', 'usuario', 'id');
-		$this->forge->createTable('estagiario', true);
+		$this->forge->addForeignKey('usuarioId', 'usuarios', 'id', 'CASCADE', 'CASCADE');
+		$this->forge->createTable('estagiarios', true);
 	}
 
 	public function down()

@@ -44,7 +44,7 @@ class Vaga extends Migration
 			]
 		]);
 		$this->forge->addKey('id', true);
-		$this->forge->addForeignKey('empregadorId', 'empregadores', 'usuarioId');
+		$this->forge->addForeignKey('empregadorId', 'empregadores', 'id', 'CASCADE', 'CASCADE');
 		$this->forge->createTable('vagas', true);
 	}
 

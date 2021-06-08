@@ -38,7 +38,7 @@
                 <input type="text" class="form-control" id="anoIngresso" name="anoIngresso" />
             </div>
             <div class="form-group">
-                <label for="semestre">Semestre</label>
+                <label for="semestre">Semestre atual</label>
                 <input type="number" class="form-control" id="semestre" name="semestre" placeholder="Informe o semestre do curso" min="1" max="20" required>
             </div>
             <div>

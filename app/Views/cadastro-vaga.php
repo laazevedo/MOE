@@ -43,7 +43,7 @@
             </div>
             <div class="form-group">
                 <label for="remuneracao">Remuneração</label>
-                <input type="number" class="form-control" id="remuneracao" name="remuneracao" placeholder="Remuneração" required min="400" />
+                <input type="number" step="0.01" class="form-control" id="remuneracao" name="remuneracao" placeholder="Remuneração" required min="400" />
             </div>
             <button type="submit" class="btn btn-primary">Concluir Cadastro</button>
         </form>

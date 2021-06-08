@@ -34,6 +34,7 @@
                                     </div>
                                 </div>
                             <?php endforeach; ?>
+                            <a href='/empregador' class="mt-4 btn btn-primary">Voltar</a>
                         </div>
                     </div>
                 </div>

@@ -34,7 +34,6 @@ class UsuarioController extends Controller
 		$db = \Config\Database::connect();
 		$estagiarioId = session()->get('usuarioId');
 		$estagiario = $db->table('estagiarios')->where('usuarioId', $estagiarioId)->get()->getFirstRow();
-		error_log($estagiario->nome);
 		$dados = [
 			'nome' => $estagiario->nome
 		];
