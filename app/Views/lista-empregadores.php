@@ -23,7 +23,21 @@
                 <div class="col-md-7">
                     <div class="form h-100 contact-wrap p-5">
                         <div class="container-fluid">
-                            <h1 class="align-self-center">Bem-vindo empregador</h1>
+                            <h3>Empregadores</h3>
+                            <?php foreach ($empregadores as $empregador) : ?>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= $empregador->nomeEmpresa ?></h5>
+                                        <p class="card-text"><?= "Descrição: " . $empregador->descricaoEmpresa ?></p>
+                                        <p class="card-text"><?= "Produtos: " . $empregador->descricaoProdutos ?></p>
+                                        <?php if (in_array($empregador->usuarioId, $interesse)) : ?>
+                                            <a href=<?= 'desinteresse/' . $empregador->usuarioId ?> class="btn btn-info">Descadastrar interesse</a>
+                                        <?php else : ?>
+                                            <a href=<?= 'interesse/' . $empregador->usuarioId ?> class="btn btn-primary">Cadastrar interesse</a>
+                                        <?php endif ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>

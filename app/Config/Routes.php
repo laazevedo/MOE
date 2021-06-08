@@ -39,9 +39,12 @@ $routes->get('/estagiario', 'UsuarioController::estagiarioIndex');
 $routes->post('/cadastro', 'UsuarioController::verificarUsuario');
 $routes->post('/cadastro/estagiario', 'UsuarioController::cadastrarEstagiario');
 $routes->post('/cadastro/empregador', 'UsuarioController::cadastrarEmpregador');
-$routes->get('/cadastro/vaga', 'VagaController::index');
-$routes->post('/cadastro/vaga', 'VagaController::cadastrarVaga');
+$routes->get('/cadastro/vaga', 'EmpregadorController::index');
+$routes->post('/cadastro/vaga', 'EmpregadorController::cadastrarVaga');
 $routes->post('/login', 'UsuarioController::fazerLogin');
+$routes->get('/lista/empregadores', 'EmpregadorController::getEmpregadores');
+$routes->get('/lista/interesse/(:num)', 'EmpregadorController::cadastrarInteresse/$1');
+$routes->get('/lista/desinteresse/(:num)', 'EmpregadorController::descadastrarInteresse/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

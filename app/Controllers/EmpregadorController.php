@@ -4,8 +4,9 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\Vaga;
+use App\Models\InteresseVaga;
 
-class VagaController extends BaseController
+class EmpregadorController extends BaseController
 {
 	public function index()
 	{
@@ -62,7 +63,49 @@ class VagaController extends BaseController
 			// Cria uma vaga no banco 
 			$vaga->save($dados);
 
-			return redirect()->to('/');
+			return redirect()->to('/empregador');
 		}
+	}
+
+	public function getEmpregadores()
+	{
+		$db = \Config\Database::connect();
+		$empregadores_query = $db->table('empregadores')->get();
+		$estagiarioId = session()->get('usuarioId');
+		$interesse_query = $db->table('interesseVaga')->where('estagiarioId', $estagiarioId)->get();
+		$interesse = array();
+		foreach ($interesse_query->getResult() as $i) {
+			array_push($interesse, $i->empregadorId);
+		}
+		$data = [
+			'empregadores' => $empregadores_query->getResult(),
+			'interesse' => $interesse
+		];
+		return view('lista-empregadores', $data);
+	}
+
+	public function cadastrarInteresse($empregadorId)
+	{
+		$estagiarioId = session()->get('usuarioId');
+		$interesse = new InteresseVaga();
+		error_log($estagiarioId);
+		error_log($empregadorId);
+		$dados = [
+			'estagiarioId' => $estagiarioId,
+			'empregadorId' => $empregadorId
+		];
+		$interesse->save($dados);
+		return redirect()->to('/lista/empregadores');
+	}
+	public function descadastrarInteresse($empregadorId)
+	{
+		$db = \Config\Database::connect();
+		$builder = $db->table('interesseVaga');
+		$estagiarioId = session()->get('usuarioId');
+		$builder->delete([
+			'empregadorId' => $empregadorId,
+			'estagiarioId' => $estagiarioId,
+		]);
+		return redirect()->to('/lista/empregadores');
 	}
 }
