@@ -39,6 +39,8 @@ $routes->get('/estagiario', 'UsuarioController::estagiarioIndex');
 $routes->post('/cadastro', 'UsuarioController::verificarUsuario');
 $routes->post('/cadastro/estagiario', 'UsuarioController::cadastrarEstagiario');
 $routes->post('/cadastro/empregador', 'UsuarioController::cadastrarEmpregador');
+$routes->get('/cadastro/vaga', 'VagaController::index');
+$routes->post('/cadastro/vaga', 'VagaController::cadastrarVaga');
 $routes->post('/login', 'UsuarioController::fazerLogin');
 /*
  * --------------------------------------------------------------------

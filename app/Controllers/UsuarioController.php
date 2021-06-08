@@ -55,6 +55,10 @@ class UsuarioController extends Controller
 			// TODO - CRIAR SESSAO AO FAZER LOGIN
 			$model = new Usuario();
 			$usuario = $model->where('email', $email)->first();
+			$session = session();
+			$session->set([
+				'usuarioId' => $usuario['id']
+			]);
 			if ($usuario['tipo'] == 'empregador')
 				return redirect()->to('/empregador');
 			else
